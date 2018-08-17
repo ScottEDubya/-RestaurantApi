@@ -7,5 +7,11 @@ namespace RestaurantApi.Reopsitories
         IEnumerable<T> Get();
 
         bool TryGet(int id, out T entity);
+
+        T Create(T entity);
+
+        T Update(int id, T entity);
+
+        bool Delete(int id);
     }
 }

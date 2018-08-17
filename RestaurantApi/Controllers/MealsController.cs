@@ -10,9 +10,9 @@ namespace RestaurantApi.Controllers
     [ApiController]
     public class MealsController : ControllerBase
     {
-        private readonly MealRepo _repository;
+        private readonly IMealRepo _repository;
 
-        public MealsController(MealRepo repository)
+        public MealsController(IMealRepo repository)
         {
             _repository = repository;
         }
@@ -34,21 +34,32 @@ namespace RestaurantApi.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Meal meal)
         {
-            Console.WriteLine("post");
+            var createdMeal = _repository.Create(meal);
+            if(createdMeal != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Meal> Put(int id, Meal entity)
         {
-            Console.WriteLine("put");
+            _repository.Update(id, entity);
+
+            return Ok(entity);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Console.WriteLine("delete");
+            if(_repository.Delete(id))
+            {
+                return NoContent();
+            }
+            return NotFound();
         }
     }
 }
