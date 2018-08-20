@@ -1,2 +1,3 @@
 No description yet.
-Sorry!!!
+Sorry!!
+Tests must pass for merging to be allowed
