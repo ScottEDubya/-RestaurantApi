@@ -24,13 +24,12 @@ namespace RestaurantApi
             services.AddMvc();
 
             //set up db connection
-            var connString = Configuration["Data Source=blogging.db"];
+            var connString = "Data Source=food.db";//Configuration["Data Source=food.db"];
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite("Data Source=food.db");
+                options.UseSqlite(connString);
             }, ServiceLifetime.Transient);
             services.AddScoped<IMealRepo, MealRepo>();
-            services.AddScoped<IIngredientRepo, IngredientRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext)
