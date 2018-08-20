@@ -1,0 +1,10 @@
+language: csharp
+mono: none
+dotnet: 2.1.302
+
+install:
+- dotnet restore
+
+script:
+ - dotnet build
+ - dotnet test tests/RestaurantApi.UnitTests.csproj
