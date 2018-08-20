@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantApi", "Restaurant
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{15B0A531-8D3A-419A-B28C-5C821DEEB2D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantApi.UnitTests", "tests\RestaurantApi.UnitTests.csproj", "{EAE9FB36-43DF-4AF4-96B0-FFC5FADAD448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantApi.IntegrationTests", "tests\RestaurantApi.IntegrationTests.csproj", "{EAE9FB36-43DF-4AF4-96B0-FFC5FADAD448}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
