@@ -10,7 +10,6 @@ namespace RestaurantApi.Data
             Database.Migrate(); //will make db if not exist
         }
         public DbSet<Meal> Meals { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
         //dining room
         //menus
         //orders
