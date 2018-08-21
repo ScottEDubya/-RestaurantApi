@@ -1,4 +1,5 @@
-﻿using RestaurantApi.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestaurantApi.Controllers;
 using RestaurantApi.IntegrationTests.Factories;
 using RestaurantApi.Models;
 using RestaurantApi.Reopsitories;
@@ -33,6 +34,48 @@ namespace RestaurantApi.IntegrationTests.Controllers
             Assert.Contains(newMenus[0], menus);
             Assert.Contains(newMenus[1], menus);
             Assert.Contains(newMenus[2], menus);
+        }
+
+        [Fact]
+        public void GetMenu_ReturnsMenu()
+        {
+            //Arrange
+            var newMenu = _factory.Create();
+
+            //Act
+            var menu = _controller.Get(newMenu.Id).Value;
+
+            //Assert
+            Assert.Equal(newMenu, menu);
+        }
+
+        [Fact]
+        public void PostMenu_ReturnsOk()
+        {
+            //Arrange
+            var newMenu = _factory.Get();
+
+            //Act
+            var resp = _controller.Post(newMenu);
+
+            //Assert
+            //should return createdAt TODO
+            Assert.IsType<OkResult>(resp);
+        }
+
+        [Fact]
+        public void Put_UpdatesMenu()
+        {
+            //Arrange
+            var newMenu = _factory.Create();
+            var updated = _factory.Get();
+
+            // Act
+            var menu = _controller.Put(newMenu.Id, updated).Value;
+
+            // Assert
+            Assert.Equal(updated.Name, menu.Name);
+            Assert.Equal(updated.Description, menu.Description);
         }
     }
 }

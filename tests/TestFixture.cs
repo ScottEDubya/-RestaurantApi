@@ -31,7 +31,7 @@ namespace tests
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlite(connection);
 
-            _db = new AppDbContext(optionsBuilder.Options);
+            _db = new AppDbContext(optionsBuilder.Options, true);
             _db.Database.OpenConnection();
             _db.Database.EnsureCreated();
         }

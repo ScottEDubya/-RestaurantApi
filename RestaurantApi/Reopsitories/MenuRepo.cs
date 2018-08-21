@@ -47,9 +47,17 @@ namespace RestaurantApi.Reopsitories
 
         public Menu Update(int id, Menu entity)
         {
-            _db.Menus.Update(entity);
+            if(!TryGet(id, out Menu entityToUpdate))
+            {
+                return null;
+            }
+            //TODO: replace with automapper
+            entityToUpdate.Name = entity.Name;
+            entityToUpdate.Description = entity.Description;
+            //End TODO
+            _db.Menus.Update(entityToUpdate);
             _db.SaveChanges();
-            return entity;
+            return entityToUpdate;
         }
 
         public bool Delete(int id)

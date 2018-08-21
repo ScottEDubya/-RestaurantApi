@@ -6,7 +6,7 @@ namespace RestaurantApi.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options, bool isInMemory = true) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, bool isInMemory = false) : base(options)
         {
             if(!isInMemory)
             {

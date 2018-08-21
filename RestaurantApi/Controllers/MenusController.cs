@@ -46,9 +46,12 @@ namespace RestaurantApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Menu> Put(int id, Menu entity)
         {
-            _repository.Update(id, entity);
-
-            return Ok(entity);
+            var result = _repository.Update(id, entity);
+            if(result != null)
+            {
+                return result;
+            }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
