@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantApi.Models
 {
-    public class Meal
+    public class Restaurant
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,16 +16,7 @@ namespace RestaurantApi.Models
         [MaxLength(250)]
         public string Description { get; set; }
 
-        [Range(0, int.MaxValue)]
-        public int? Calories { get; set; }
-
-        [Range(0, int.MaxValue)]
-        public int? Carbohydrates { get; set; }
-
-        [Range(0, int.MaxValue)]
-        public int? Sugar { get; set; }
-
-        [Range(0, int.MaxValue)]
-        public int? Protein { get; set; }
+        public int MenuId { get; set; }
+        public Menu Menu { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RestaurantApi.Reopsitories
+namespace RestaurantApi.Reopsitories.Interfaces
 {
     public interface IRepository<T>
     {
