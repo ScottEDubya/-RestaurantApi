@@ -7,30 +7,30 @@ using RestaurantApi.Reopsitories.Interfaces;
 
 namespace RestaurantApi.Reopsitories
 {
-    public class MealRepo : IMealRepo
+    public class RestaurantRepo : IRestaurantRepo
     {
         public AppDbContext _db { get; set; }
 
-        public MealRepo(AppDbContext ctx)
+        public RestaurantRepo(AppDbContext ctx)
         {
             _db = ctx;
         }
 
-        public IEnumerable<Meal> Get()
+        public IEnumerable<Restaurant> Get()
         {
             try
             {
-                return _db.Meals.OrderBy(c => c.Name).ToList();
+                return _db.Restaurants.OrderBy(c => c.Name).ToList();
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-                return new List<Meal>();
+                return new List<Restaurant>();
             }
         }
 
-        public bool TryGet(int id, out Meal entity)
+        public bool TryGet(int id, out Restaurant entity)
         {
-            entity = _db.Meals.SingleOrDefault(e => e.Id == id);
+            entity = _db.Restaurants.SingleOrDefault(e => e.Id == id);
             if (entity == null)
             {
                 return false;
@@ -38,16 +38,20 @@ namespace RestaurantApi.Reopsitories
             return true;
         }
 
-        public Meal Create(Meal entity)
+        public Restaurant Create(Restaurant entity)
         {
-            _db.Meals.Add(entity);
+            if(_db.Menus.FirstOrDefault(x => x.Id == entity.Id) == null)
+            {
+                return null;
+            }
+            _db.Restaurants.Add(entity);
             _db.SaveChanges();
             return entity;
         }
 
-        public Meal Update(int id, Meal entity)
+        public Restaurant Update(int id, Restaurant entity)
         {
-            _db.Meals.Update(entity);
+            _db.Restaurants.Update(entity);
             _db.SaveChanges();
             return entity;
         }
@@ -55,11 +59,11 @@ namespace RestaurantApi.Reopsitories
         public bool Delete(int id)
         {
             var deleteMe = Get().FirstOrDefault(e => e.Id == id);
-            if(deleteMe == null)
+            if (deleteMe == null)
             {
                 return false;
             }
-            _db.Meals.Remove(deleteMe);
+            _db.Restaurants.Remove(deleteMe);
             _db.SaveChanges();
             return true;
         }

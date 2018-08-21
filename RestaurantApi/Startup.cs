@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using RestaurantApi.Data;
 using RestaurantApi.Reopsitories;
+using RestaurantApi.Reopsitories.Interfaces;
 
 namespace RestaurantApi
 {
@@ -30,6 +29,8 @@ namespace RestaurantApi
                 options.UseSqlite(connString);
             }, ServiceLifetime.Transient);
             services.AddScoped<IMealRepo, MealRepo>();
+            services.AddScoped<IMenuRepo, MenuRepo>();
+            services.AddScoped<IRestaurantRepo, RestaurantRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext)

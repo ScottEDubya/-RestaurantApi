@@ -5,38 +5,38 @@ using RestaurantApi.Reopsitories.Interfaces;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/meals")]
+    [Route("api/menus")]
     [ApiController]
-    public class MealsController : ControllerBase
+    public class MenusController : ControllerBase
     {
-        private readonly IMealRepo _repository;
+        private readonly IMenuRepo _repository;
 
-        public MealsController(IMealRepo repository)
+        public MenusController(IMenuRepo repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public IEnumerable<Meal> Get()
+        public IEnumerable<Menu> Get()
         {
             return _repository.Get();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Meal> Get(int id)
+        public ActionResult<Menu> Get(int id)
         {
-            if (!_repository.TryGet(id, out Meal meal))
+            if (!_repository.TryGet(id, out Menu menu))
             {
                 return NotFound();
             }
-            return meal;
+            return menu;
         }
 
         [HttpPost]
-        public IActionResult Post(Meal meal)
+        public IActionResult Post(Menu menu)
         {
-            var createdMeal = _repository.Create(meal);
-            if(createdMeal != null)
+            var createdMenu = _repository.Create(menu);
+            if (createdMenu != null)
             {
                 return Ok();
             }
@@ -44,17 +44,20 @@ namespace RestaurantApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Meal> Put(int id, Meal entity)
+        public ActionResult<Menu> Put(int id, Menu entity)
         {
-            _repository.Update(id, entity);
-
-            return Ok(entity);
+            var result = _repository.Update(id, entity);
+            if(result != null)
+            {
+                return result;
+            }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if(_repository.Delete(id))
+            if (_repository.Delete(id))
             {
                 return NoContent();
             }

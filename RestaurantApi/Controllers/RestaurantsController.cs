@@ -5,38 +5,38 @@ using RestaurantApi.Reopsitories.Interfaces;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/meals")]
+    [Route("api/restaurants")]
     [ApiController]
-    public class MealsController : ControllerBase
+    public class RestaurantsController : ControllerBase
     {
-        private readonly IMealRepo _repository;
+        private readonly IRestaurantRepo _repository;
 
-        public MealsController(IMealRepo repository)
+        public RestaurantsController(IRestaurantRepo repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public IEnumerable<Meal> Get()
+        public IEnumerable<Restaurant> Get()
         {
             return _repository.Get();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Meal> Get(int id)
+        public ActionResult<Restaurant> Get(int id)
         {
-            if (!_repository.TryGet(id, out Meal meal))
+            if (!_repository.TryGet(id, out Restaurant restaurant))
             {
                 return NotFound();
             }
-            return meal;
+            return restaurant;
         }
 
         [HttpPost]
-        public IActionResult Post(Meal meal)
+        public IActionResult Post(Restaurant restaurant)
         {
-            var createdMeal = _repository.Create(meal);
-            if(createdMeal != null)
+            var createdRestaurant = _repository.Create(restaurant);
+            if (createdRestaurant != null)
             {
                 return Ok();
             }
@@ -44,7 +44,7 @@ namespace RestaurantApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Meal> Put(int id, Meal entity)
+        public ActionResult<Restaurant> Put(int id, Restaurant entity)
         {
             _repository.Update(id, entity);
 
@@ -54,7 +54,7 @@ namespace RestaurantApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if(_repository.Delete(id))
+            if (_repository.Delete(id))
             {
                 return NoContent();
             }
